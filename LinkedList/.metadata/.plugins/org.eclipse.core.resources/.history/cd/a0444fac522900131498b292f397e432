@@ -1,0 +1,127 @@
+
+public class ItemLinkedList {
+	
+	ItemNode front;
+	
+	//Constructor
+	public ItemLinkedList() {
+		front = new ItemNode();
+	}
+	
+	//Inserts the product into the list if 
+	//its key is unique (case insensitive). 
+	//Returns true if successful; otherwise, false.
+	public boolean add(Item input) {
+		
+		boolean result = false;
+		String inputName = input.getName();
+		ItemNode n = new ItemNode(input);
+		
+		if (isEmpty()) {
+			front = n;
+			result = true;
+		}
+		else if (retrieve(inputName) != null) {
+			result = false;
+		}
+		else {
+			ItemNode i = front;
+			ItemNode prev;
+			while(i != null) {
+				int check = i.getItem().getName().compareToIgnoreCase(inputName);
+				if (check < 0 && (i == front)) {
+					n.setNext(i);
+					front = n;
+				}
+				else if (check < 0) {
+					n.setNext(i);
+					i.setNext(n);
+				}
+				prev = i;
+			}
+		}
+		return result;
+	}
+
+	//Returns the Item having the specified key value (case insensitive)
+	//Otherwise, return null if not found.
+	//My retrieve method now uses the helper method linearSearch.
+	//The Big-O for this operation is now O(n). 
+	//My previous retrieve method from program one retrieved the item using binary search
+	//at a cost of O(n*log(n)).
+	public Item retrieve(String find) {
+	    int retVal = linearSearch(find);
+		Item result = null;
+		if(retVal != -1)
+			result = itemArray[retVal];
+		return result;
+	}
+	
+	//Helper Method.
+	public int linearSearch(String find) {
+		int result = -1;
+		for(int i=0; i<myCount; i++) {
+			if(itemArray[i].getName().equalsIgnoreCase(find)) {
+				result = i;
+				break;
+			}
+		}
+		return result;
+		
+	}
+
+	//Deletes the Item with the given key (case insensitive). 
+	//Returns true if an Item was found and deleted; else, false.
+	//Decrements myCount, and sorts after successful delete.
+	public boolean delete(String find) {
+		boolean result = false;
+		for (int i=0; i<myCount; i++) {
+			if (find.compareToIgnoreCase(itemArray[i].getName()) == 0) {
+				itemArray[i] = null;
+				for(int j = i; j<myCount; j++) {
+					itemArray[j] = itemArray[j+1];
+				}
+				result = true;
+				myCount--;
+				break;
+			}
+			else continue;	
+		}
+		return result;
+	}
+	
+	//Resets the list to the empty state and myCount to 0.
+	public void clear() {
+		for (int i=0; i<50; i++) {
+			itemArray[i] = null;
+		}
+		myCount=0;
+	}
+
+	//Returns true if and only if the list is empty.
+	public boolean isEmpty() {
+		boolean result;
+		if (myCount != 0)
+			result = false;
+		else result = true;
+		return result;
+	}
+	
+	//Prints all of the Items in the list 
+	//in ascending order by the key field.
+	//My print method now calls sort() and then prints if the list is not empty. 
+	//The Big-O for this operation is now O(n^2). 
+	//My previous print method from program one did not have to sort them because
+	//they were added in sorted order.
+	public void print() {
+		if(isEmpty())
+			System.out.println("Your list is empty.");
+		else {
+			for (int i=0; i<myCount; i++) {
+				System.out.println("Name: "+itemArray[i].getName()+"   Price: "+itemArray[i].getPrice()+"   Qty.: "+itemArray[i].getQuantity());
+			}
+		}
+	}
+	 
+
+}

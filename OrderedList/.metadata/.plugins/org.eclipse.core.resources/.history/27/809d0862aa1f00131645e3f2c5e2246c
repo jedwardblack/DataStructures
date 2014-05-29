@@ -1,0 +1,121 @@
+
+public class FAItemOrderedList {
+	
+	Item[] itemArray;
+	int myCount;
+	
+	public FAItemOrderedList() {
+		itemArray = new Item[50];
+		myCount = 0;
+	}
+	
+	//Inserts the product into the list if 
+	//its key is unique (case insensitive) and the list is not full. 
+	//Returns true if successful; otherwise, false.
+	public boolean add(Item input) {
+		
+		boolean result = false;
+		String inputName = input.getName();
+		
+		if (isEmpty()) {
+			itemArray[0] = input;
+			result = true;
+			myCount++;
+			sort();
+		}
+		else if (isFull())
+			result = false;
+		else if (retrieve(inputName) != null)
+			result = false;
+		else {
+			itemArray[myCount++] = input;
+			result = true;
+			sort();
+		}
+		return result;
+				
+					
+	}
+
+	//Returns the Item having the specified key value (case insensitive)
+	//Otherwise, return null if not found.
+	public Item retrieve(String find) {
+		Item result = null;
+		for (int i=0; i<myCount; i++) {
+			if (itemArray[i].getName().equalsIgnoreCase(find) == true) {
+				result = itemArray[i];
+				break;
+			}
+			else continue;
+		}
+		return result;
+	}
+
+	//Deletes the Item with the given key (case insensitive). 
+	//Returns true if an Item was found and deleted; else, false.
+	public boolean delete(String find) {
+		boolean result = false;
+		for (int i=0; i<myCount; i++) {
+			if (find.compareTo(itemArray[i].getName()) == 0) {
+				itemArray[i] = null;
+				result = true;
+				myCount--;
+				break;
+			}
+			else continue;	
+		}
+		sort();
+		return result;
+	}
+	
+	//Resets the list to the empty state.
+	public void clear() {
+		for (int i=0; i<50; i++) {
+			itemArray[i] = null;
+		}
+		myCount=0;
+	}
+
+	//Returns true if and only if the list is empty.
+	public boolean isEmpty() {
+		boolean result;
+		if (myCount != 0)
+			result = false;
+		else result = true;
+		return result;
+	}
+	
+	//Returns true if and only if the list is full.
+	public boolean isFull() {
+		boolean result = true;
+		if (myCount != 49)
+			result = false;
+		return result;
+	}
+	
+	//Prints all of the Items in the list 
+	//in ascending order by the key field.
+	public void print() {
+		if(isEmpty())
+			System.out.println("Your list is empty.");
+		else
+			for (int i=0; i<myCount; i++) {
+				System.out.println("Name: "+itemArray[i].getName()+"   Price: "+itemArray[i].getPrice()+"   Qty.: "+itemArray[i].getQuantity());
+			}
+	}
+	
+	public void sort() {
+		int length = myCount;
+		for (int i = 0; i < length; i++) {
+			for (int j =length-1; j > i; j--) {
+				if (itemArray[j].getName().compareTo(itemArray[j-1].getName()) < 0) {
+					Item t = itemArray[j];
+					itemArray[j] = itemArray[j-1];
+					itemArray[j-1] = t;
+				}
+			}
+		}
+	}
+	 
+
+}

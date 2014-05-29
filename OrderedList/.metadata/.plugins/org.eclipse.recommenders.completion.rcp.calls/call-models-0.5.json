@@ -1,0 +1,13 @@
+{
+  "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar": {
+    "coordinate": "jre:jre:zip:call:1.0.0",
+    "location": "/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar",
+    "status": "RESOLVED",
+    "error": "No class path info available for \u0027/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Classes/classes.jar\u0027. Skipped."
+  },
+  "/Volumes/HD Audio/Fall 2013/Data Structures/Program1/Program1/src": {
+    "location": "/Volumes/HD Audio/Fall 2013/Data Structures/Program1/Program1/src",
+    "status": "UNRESOLVED",
+    "error": "No class path info available for \u0027/Volumes/HD Audio/Fall 2013/Data Structures/Program1/Program1/src\u0027. Skipped."
+  }
+}

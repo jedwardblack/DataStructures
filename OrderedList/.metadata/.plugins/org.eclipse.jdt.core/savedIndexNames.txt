@@ -1,0 +1,3 @@
+INDEX VERSION 1.126+/Volumes/HD Audio/Fall 2013/Data Structures/Program1/.metadata/.plugins/org.eclipse.jdt.core
+1317970202.index
+3616010400.index

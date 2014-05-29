@@ -1,0 +1,24 @@
+
+public class DLMoveQueue implements MoveQueueADT {
+	
+	//Returns true if queue is full.
+	public boolean isFull() {
+		
+	}
+	
+	//Returns true if queue is empty.
+	public boolean isEmpty(){
+		
+	}
+	
+	//Removes front and returns data.
+	public Move dequeue(){
+		
+	}
+	
+	//Adds Move P to the end of the queue.
+	public boolean enqueue(Move P){
+		
+	}
+
+}

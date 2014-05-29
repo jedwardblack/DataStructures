@@ -1,0 +1,10 @@
+
+public class Move {
+
+	public int playerIdentifier;
+	public Direction moveDir;
+	
+	public enum Direction {LEFT, RIGHT, UP, DOWN}
+	
+	
+}

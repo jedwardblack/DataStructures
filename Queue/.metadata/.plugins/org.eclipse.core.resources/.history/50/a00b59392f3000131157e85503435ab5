@@ -1,0 +1,10 @@
+
+public class Player {
+
+	public int x;
+	public int y;
+	public int score;
+	public int identifier;
+	public char symbol;
+	
+}

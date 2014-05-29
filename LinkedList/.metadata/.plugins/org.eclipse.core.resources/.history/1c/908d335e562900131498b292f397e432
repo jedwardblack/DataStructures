@@ -1,0 +1,120 @@
+
+public class ItemLinkedList {
+	
+	ItemNode front;
+	
+	//Constructor
+	public ItemLinkedList() {
+		front = null;
+	}
+	
+	//Inserts the product into the list if 
+	//its key is unique (case insensitive). 
+	//Returns true if successful; otherwise, false.
+	public boolean add(Item input) {
+		
+		boolean result = false;
+		String inputName = input.getName();
+		ItemNode n = new ItemNode(input);
+		
+		if (isEmpty()) {
+			front = n;
+			result = true;
+		}
+		
+		else if (retrieve(inputName) != null) {
+			result = false;
+		}
+		
+		else {
+			ItemNode i = front;
+			ItemNode prev = null;
+			while(i != null) {
+				int check = i.getItem().getName().compareToIgnoreCase(inputName);
+				if (check < 0 && (i == front)) {
+					n.setNext(i);
+					front = n;
+				}
+				else if (check < 0) {
+					n.setNext(i);
+					prev.setNext(n);
+				}
+				else
+					prev.setNext(n);
+				prev = i;
+				i = i.getNext();
+			}
+			result = true;
+		}
+		
+		return result;
+	}
+
+	//Returns the Item having the specified key value (case insensitive)
+	//Otherwise, return null if not found.
+	public Item retrieve(String find) {
+		ItemNode i = front;
+		Item result = null;
+		while(i != null) {
+			int check = i.getItem().getName().compareToIgnoreCase(find);
+			if (check == 0) {
+				result = i.getItem();
+			}
+			i = i.getNext();
+		}
+		return result;
+	}
+
+	//Deletes the Item with the given key (case insensitive). 
+	//Returns true if an Item was found and deleted; else, false.
+	public boolean delete(String find) {
+		ItemNode i = front;
+		ItemNode prev = null;
+		boolean result = false;
+		while(i != null) {
+			int check = i.getItem().getName().compareToIgnoreCase(find);
+			if ((check == 0) && (i == front)) {
+				front = i.getNext();
+				result = true;
+			}
+			else if (check == 0) {
+				prev.setNext(i.getNext());
+			}
+			prev = i;
+			i = i.getNext();
+		}
+		return result;
+	}
+	
+	//Resets the list to the empty state.
+	public void clear() {
+		front = null;
+	}
+
+	//Returns true if and only if the list is empty.
+	public boolean isEmpty() {
+		boolean result;
+		if (front == null)
+			result = true;
+		else result = false;
+		return result;
+	}
+	
+	//Prints all of the Items in the list 
+	//in ascending order by the key field.
+	public void print() {
+		if(isEmpty())
+			System.out.println("Your list is empty.");
+		else {
+			ItemNode i = front;
+			while(i != null) {
+				System.out.println(
+						"Name: "+i.getItem().getName()+"   "+ 
+						"Price: "+i.getItem().getPrice()+"   "+
+						"Qty.: "+i.getItem().getQuantity());
+			}
+		}
+	}
+	 
+
+}

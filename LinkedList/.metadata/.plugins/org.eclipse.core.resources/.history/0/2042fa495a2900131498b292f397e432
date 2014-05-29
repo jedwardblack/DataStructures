@@ -1,0 +1,30 @@
+
+public class ItemNode {
+
+	ItemNode next;
+	Item item;
+	
+	public ItemNode() {
+		next = null;
+		item = null;
+	}
+	
+	public ItemNode(Item T) {
+		next = null;
+		item = T;
+	}
+	
+	public void setNext(ItemNode n) {
+		next = n;
+	}
+	
+	public ItemNode getNext() {
+		return this.next;
+	}
+	
+	public Item getItem() {
+		return this.item;
+	}
+	
+	
+}

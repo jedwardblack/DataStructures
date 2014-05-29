@@ -1,0 +1,164 @@
+
+/*
+ * Test Driver for Program 1
+ */
+import java.util.Scanner;
+
+class Prog1
+{
+	
+	public static void main(String[] args)
+	{
+		//Create all the variables we shall use
+		Scanner kb = new Scanner(System.in);
+
+		int menuChoice = 0, newQuantity = 0;
+		String newName = null, find;
+		double newPrice = 0.0;
+		Item input = null;
+		FAItemOrderedList mainList = new FAItemOrderedList();
+		boolean check;
+		
+		//Greet the user and call the menu interface
+		
+		System.out.println("Welcome user!  Make your selection.");
+		menuChoice = menu();
+		
+		//A while loop is used to control the quit function.  If zero is
+		//entered, the loop ends.  A switch statement is used to direct
+		//the program to the proper methods
+		
+		while (menuChoice != 0)
+		{
+		switch (menuChoice)
+		{
+			//This case accepts info about an item, validates it, and then
+			//hands it to the add method to be added to the cart.  A
+			//status message indicating success or failure is also provided
+		case 1:
+			System.out.println("Please provide the details of the item");
+			System.out.print("Enter name: ");
+			newName = kb.next();
+			System.out.print("Enter quantity: ");
+			newQuantity = kb.nextInt();
+			
+			while (newQuantity < 1)
+			{
+				System.out.print("Invalid quantity.  Please enter a" +
+					"quantity greater than zero: ");
+				newQuantity = kb.nextInt();
+			}//while
+			
+			System.out.print("Enter price: ");
+			newPrice = kb.nextDouble();
+			
+			while (newPrice < 0)
+			{
+				System.out.print("Invalid price.  Please enter a" +
+					"price greater than zero: ");
+				newPrice = kb.nextDouble();
+			}//while
+			
+			
+			input = new Item(newQuantity, newName, newPrice);
+			check = mainList.add(input);
+
+			if (check == true)
+				System.out.println(input.getName() + " successfully added!");
+			else 
+			{
+				System.out.println("There was an error.  The item may be " +
+				"already in the cart or the cart may be full");
+				System.out.println("Check cart and try again.");
+			}//else
+			break;
+			//This case deals with deleting an item.  If the findIndex
+			//method doesn't find it, an error message is provided and the
+			//user is prompted to check his list
+		case 2:
+			System.out.print("Enter the name of the item to be deleted:");
+			find = kb.next();
+			check = mainList.delete(find);
+			System.out.println("");
+			if (check == true)
+				System.out.println("Item successfully deleted!");
+			else
+			{
+				System.out.println("There was an error.  The item may " +
+					"not be in the cart.");
+				System.out.println("Check cart and try again.");
+			}//else
+			
+			break;
+			//This case just calls the print method
+		case 3:
+			mainList.print();
+			break;
+			//This case tries to find an item using the retrieve method
+			//and then prints out the salient information about it.
+		case 4:
+			System.out.print("Enter the name of the item to be retrieved: ");
+			find = kb.next();
+			Item findItem;
+			findItem = mainList.retrieve(find);
+			
+			if (findItem == null)
+				System.out.println(find + " was not found in the cart.");
+			else 
+			{
+				System.out.println(findItem.getName() + " was found in the cart.");
+				System.out.println("You have " + findItem.getQuantity() +
+					" at " + findItem.getPrice() + " each.");
+			}//else
+			break;
+			//This case just displays the total count of items in the cart
+		case 5:
+			check = mainList.isEmpty();
+			if (check == true)
+				System.out.println("Your list is empty");
+			else System.out.println("Your list is not empty");
+			break;
+		case 6:
+			mainList.clear();
+			System.out.println("The cart has been emptied");
+			break;
+		default:
+		}//switch
+		menuChoice = menu();
+		}//while
+		System.out.println("");
+		System.out.println("Thank you for using this program.");
+	}//main
+	
+	/* This method constitutes the menu interface.
+	   Pre-condition: None
+	   Post-condition: An integer menu choice is returned, validated to be 
+	   between 0-6 inclusive.  The user is prompted to enter another value
+	   if it is outside of this range. */
+	
+	public static int menu()
+	{
+		int choice = 0;
+		boolean valid = false;
+                Scanner kb = new Scanner(System.in);
+		
+		while (valid == false)
+		{
+			System.out.println("");
+			System.out.println("1. Add an item to the cart");
+			System.out.println("2. Delete an item from the cart");
+			System.out.println("3. Print each item in the cart");
+			System.out.println("4. Search for a user-specified item in the cart");
+			System.out.println("5. Determine whether the cart is empty");
+			System.out.println("6. Clear the cart");
+			System.out.println("0. Quit");
+			System.out.print("Make your choice: ");
+			choice = kb.nextInt();
+		if ((choice >=0) && (choice <= 6))
+			valid = true;
+		else System.out.println("Invalid choice.  Please try again.");
+		}//while
+		
+		return choice;
+	}//menu
+}
